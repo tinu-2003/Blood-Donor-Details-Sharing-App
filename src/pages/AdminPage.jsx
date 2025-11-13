@@ -100,6 +100,38 @@ function AdminPage() {
             <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
          </TableRow>
 
+                  <TableRow>
+            <TableCell>Tinu</TableCell>
+            <TableCell>Ayoor</TableCell>
+            <TableCell>Kollam</TableCell>
+            <TableCell>0+</TableCell>
+            <TableCell>8113044487</TableCell>
+            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
+         </TableRow>         <TableRow>
+            <TableCell>Tinu</TableCell>
+            <TableCell>Ayoor</TableCell>
+            <TableCell>Kollam</TableCell>
+            <TableCell>0+</TableCell>
+            <TableCell>8113044487</TableCell>
+            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
+         </TableRow>         <TableRow>
+            <TableCell>Tinu</TableCell>
+            <TableCell>Ayoor</TableCell>
+            <TableCell>Kollam</TableCell>
+            <TableCell>0+</TableCell>
+            <TableCell>8113044487</TableCell>
+            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
+         </TableRow>
+
+                  <TableRow>
+            <TableCell>Tinu</TableCell>
+            <TableCell>Ayoor</TableCell>
+            <TableCell>Kollam</TableCell>
+            <TableCell>0+</TableCell>
+            <TableCell>8113044487</TableCell>
+            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
+         </TableRow>
+
           <TableRow>
             <TableCell>Tinu</TableCell>
             <TableCell>Ayoor</TableCell>
@@ -293,7 +325,7 @@ function AdminPage() {
         <TabPanel value="3">
 
            {/* Heading */}
-        <Typography variant='h3'  className='text-center m-4' >New User</Typography>
+        <Typography variant='h3'  className='text-center m-4' >InActive User</Typography>
         {/* Download Button */}
       <div className='text-end p-2'>  
         <Button className='btn btn-info '>Download</Button>
