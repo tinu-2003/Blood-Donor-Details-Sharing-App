@@ -6,6 +6,7 @@ import PageNotFound from './pages/PageNotFound'
 import AdminPage from './pages/AdminPage'
 import FindDonorPage from './pages/FindDonorPage'
 import EligibilityCheck from './pages/EligibilityCheck'
+import ScheduleDonation from './pages/ScheduleDonation'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
           <Route path='/adminpage' element={<AdminPage/>}/>
           <Route path='/finddonorpage' element={<FindDonorPage/>}/>
           <Route path='/eligibilitycheck' element={<EligibilityCheck/>}/>
+          <Route path='/scheduledonation' element={<ScheduleDonation/>}/>
           <Route path='*' element={<PageNotFound/>}/>
         </Routes>
  

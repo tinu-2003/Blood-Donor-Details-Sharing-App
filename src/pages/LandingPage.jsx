@@ -81,30 +81,32 @@ function LandingPage() {
             justifyContent="center"
             alignItems="center"
           >
-            <Button
-              variant="contained"
-              href="#appointment-form"
-              size="large"
-              sx={{
-                bgcolor: "error.main",
-                color: "white",
-                px: 5,
-                py: 1.5,
-                fontWeight: "bold",
-                borderRadius: "12px",
-                textTransform: "uppercase",
-                letterSpacing: "0.08em",
-                boxShadow: "0px 8px 24px rgba(255, 0, 0, 0.4)",
-                "&:hover": {
-                  bgcolor: "error.dark",
-                  transform: "scale(1.05)",
-                  boxShadow: "0px 10px 30px rgba(255, 0, 0, 0.6)",
-                },
-                transition: "all 0.3s ease",
-              }}
-            >
-              Schedule Donation
-            </Button>
+      <Link to={'/scheduledonation'}>
+              <Button
+                variant="contained"
+                href="#appointment-form"
+                size="large"
+                sx={{
+                  bgcolor: "error.main",
+                  color: "white",
+                  px: 5,
+                  py: 1.5,
+                  fontWeight: "bold",
+                  borderRadius: "12px",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.08em",
+                  boxShadow: "0px 8px 24px rgba(255, 0, 0, 0.4)",
+                  "&:hover": {
+                    bgcolor: "error.dark",
+                    transform: "scale(1.05)",
+                    boxShadow: "0px 10px 30px rgba(255, 0, 0, 0.6)",
+                  },
+                  transition: "all 0.3s ease",
+                }}
+              >
+                Schedule Donation
+              </Button>
+      </Link>
 
            <Link to={'/finddonorpage'}>
               <Button
