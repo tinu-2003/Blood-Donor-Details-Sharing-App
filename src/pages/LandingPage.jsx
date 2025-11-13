@@ -6,6 +6,8 @@ import { Card, CardContent } from '@mui/material';
 
 import Header from '../components/Header'
 import '../App.css'
+import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 function LandingPage() {
   return (
@@ -101,30 +103,32 @@ function LandingPage() {
                 transition: "all 0.3s ease",
               }}
             >
-              Schedule Your Donation
+              Schedule Donation
             </Button>
 
-            <Button
-              variant="outlined"
-              href="#donor-search"
-              size="large"
-              sx={{
-                borderColor: "success.main",
-                color: "success.main",
-                px: 5,
-                py: 1.5,
-                fontWeight: "bold",
-                borderRadius: "12px",
-                textTransform: "none",
-                "&:hover": {
-                  transform: "scale(1.05)",
-                  boxShadow: 3,
-                },
-                transition: "all 0.3s ease",
-              }}
-            >
-              Find Donor in Need
-            </Button>
+           <Link to={'/finddonorpage'}>
+              <Button
+                variant="outlined"
+                href="#donor-search"
+                size="large"
+                sx={{
+                  borderColor: "success.main",
+                  color: "success.main",
+                  px: 5,
+                  py: 1.5,
+                  fontWeight: "bold",
+                  borderRadius: "12px",
+                  textTransform: "none",
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                    boxShadow: 3,
+                  },
+                  transition: "all 0.3s ease",
+                }}
+              >
+                Find Donors   
+              </Button>
+           </Link>
           </Stack>
         </Box>
       </Container>
@@ -374,16 +378,28 @@ sx={{maxWidth:'lg',m:4,color:'text.secondary', fontSize:{xs:'1rem ',md:"1.4rem"}
 {/* Eligibility Check  */}
     <Container>
 
-      <Typography variant="h3" color="error.main" sx={{ textAlign:'center', fontWeight:800, margin:5}}>
+      <Typography variant="h3" color="error.main" sx={{ textAlign:'center', fontWeight:800, mb:{xs:3,md:5}
+  ,mt:{xs:3},fontSize:{xs:'2rem',sm:'2.5rem',md:'3rem'}
+  }}>
         Eligibility
       </Typography>
 
-      <Box sx={{ boxShadow:5 ,p:4, borderRadius:5, textAlign:'center'}}>
-        <Stack >
-          <Typography variant="h4" sx={{fontWeight:800, textAlign:'left'}}>
+      <Box sx={{ boxShadow:5 ,p:{xs:3,sm:3,md:4}, borderRadius:5, textAlign:'center'}}>
+        <Stack 
+        spacing={2}sx={
+          {textAlign:{xs:"center",sm:'left'},
+        mb:{xs:3,sm:4}}
+        }>
+         <Typography
+            variant="h4"
+            sx={{
+              fontWeight: 800,
+              fontSize: { xs: "1.5rem", sm: "1.75rem", md: "2rem" },
+            }}
+          >
             New Donor? Check Your Eligibility First!
           </Typography>
-          <Typography variant="p" sx={{textAlign:'left'}}> Quickly review our official guidelines regarding age, weight, and recent travel to ensure you can donate safely.</Typography>
+          <Typography variant="p" sx={{textAlign:'left'}}> Quickly review our official guidelines regarding age, weight, and recent travel  to ensure you<br/> can donate safely.</Typography>
         </Stack>
         <Button  variant="contained"  size="large"  sx={{bgcolor: "error.main",
                 color: "white",
@@ -400,13 +416,15 @@ sx={{maxWidth:'lg',m:4,color:'text.secondary', fontSize:{xs:'1rem ',md:"1.4rem"}
                   boxShadow: "0px 10px 30px rgba(255, 0, 0, 0.6)",
                 },
                 transition: "all 0.3s ease",
+              marginLeft:90,
+              marginTop:-20
                 }}>View Donor Guidelines</Button>
       </Box>
 
     </Container>
 
 
-
+<Footer/>
     </>
   )
 }

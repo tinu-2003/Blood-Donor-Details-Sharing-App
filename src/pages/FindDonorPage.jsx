@@ -1,8 +1,16 @@
-import React from 'react'
-
+import Header from '../components/Header'
+import Footer from '../components/Footer';
 function FindDonorPage() {
+ 
   return (
-    <div>FindDonorPage</div>
+    <>
+    <Header/>
+
+   <div>Find Donner</div>
+    {/* Footer */}
+
+    <Footer/>
+    </>
   )
 }
 
