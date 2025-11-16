@@ -8,22 +8,62 @@ import { Directions } from '@mui/icons-material';
 import { FindDonors } from '../services/allAPIs';
 import { useEffect, useState } from 'react';
 function FindDonorPage() {
-
+// For filter
+const [filterBlood, setFilterBlood] = useState("");
+const [filterDistrict, setFilterDistrict] = useState("");
+const [filterPlace, setFilterPlace] = useState("");
+// sort ativeuser in filter search
+const[filteruser,SettFilteruser]=useState([])
+ const filterActiveDonors = filteruser.filter(item => {
+  return (
+    item.userStatus === 0 &&
+    (filterPlace ? item.city === filterPlace : true) &&
+    (filterDistrict ? item.district === filterDistrict : true) &&
+    (filterBlood ? item.bloodType === filterBlood : true)
+  );
+});
+// view all active user
   const [donors,setDonors]=useState([])
-// console.log(donors);
-  const activeDonors = donors.filter(item => item.userStatus === 1);
+
+console.log(donors);
+// sort active user
+  const activeDonors = donors.filter(item => item.userStatus === 0);
   const viewDonors = async()=>{
+
+
 
     const response = await FindDonors()
     // console.log(response);
     setDonors(response.data)
-    
+   
   }
 
-  useEffect(()=>{
-    viewDonors()
-  },[])
+  // useEffect(()=>{
+  //   viewDonors()
+  // },[])
+
+ const sortDonors = async()=>{
+  if(filterBlood!=""||filterDistrict!=""||filterPlace!=""){
+// console.log(filterBlood);
+    const response = await FindDonors()
+
+    SettFilteruser(response.data)
+     }
+    else{
+      alert("fille the fill")
+    }
+
+
+ } 
  
+//  share option
+
+const handleShare = (donor) => {
+  const message = `Donor Info:\nName: ${donor.fullName}\nBlood: ${donor.bloodType}\nPlace: ${donor.city}, ${donor.district}\nPhone: ${donor.phone}`;
+  const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank');
+};
+
   return (
     <>
     <Header/>
@@ -39,35 +79,69 @@ function FindDonorPage() {
 
    {/* Search Option */}
    
- <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        border: '2px solid',
-        borderColor: 'grey.400',
-        borderRadius: '50px',
-        padding: '4px 10px',
-        width: { xs: '100%', sm: '80%', md: '60%', lg: '40%' },
-        margin: 'auto',
-        backgroundColor: 'background.paper',
-        boxShadow: 2,
-        transition: 'all 0.3s ease',
-        '&:hover': { boxShadow: 4, borderColor: 'primary.main' },
-      }}
+<Box sx={{ display: 'flex', gap: 2, mt: 3, justifyContent: 'center' }}>
+  
+  {/* Blood Group Filter */}
+  <FormControl sx={{ minWidth: 150 }}>
+    <InputLabel>Blood Group</InputLabel>
+    <Select
+      value={filterBlood}
+      label="Blood Group"
+      onChange={(e) => setFilterBlood(e.target.value)}
     >
-      {/* Search option */}
-      <InputBase
-        sx={{
-          ml: 1,
-          flex: 1,
-          textAlign: 'center',
-          padding:4
-        }}
-        placeholder="Search  Blood Group"
-        
-      />
-    
-    </Box>
+      <MenuItem value="">All</MenuItem>
+      <MenuItem value="A+">A+</MenuItem>
+      <MenuItem value="A-">A-</MenuItem>
+      <MenuItem value="B+">B+</MenuItem>
+      <MenuItem value="B-">B-</MenuItem>
+      <MenuItem value="O+">O+</MenuItem>
+      <MenuItem value="O-">O-</MenuItem>
+      <MenuItem value="AB+">AB+</MenuItem>
+      <MenuItem value="AB-">AB-</MenuItem>
+    </Select>
+  </FormControl>
+
+  {/* District Filter */}
+  <FormControl sx={{ minWidth: 150 }}>
+    <InputLabel>District</InputLabel>
+    <Select
+      value={filterDistrict}
+      label="District"
+      onChange={(e) => setFilterDistrict(e.target.value)}
+    >
+      <MenuItem value="">All</MenuItem>
+      <MenuItem value="Kollam">Kollam</MenuItem>
+      <MenuItem value="Trivandrum">Trivandrum</MenuItem>
+      <MenuItem value="Kottayam">Kottayam</MenuItem>
+      <MenuItem value="Ernakulam">Ernakulam</MenuItem>
+      {/* Add more districts */}
+    </Select>
+  </FormControl>
+  {/* place filter */}
+
+  <FormControl sx={{ minWidth: 150 }}>
+    <InputLabel>Place</InputLabel>
+    {/* <Select
+      value={filterPlace}
+      label="place"
+      onChange={(e) => setFilterPlace(e.target.value)}
+    >
+      <MenuItem value="">All</MenuItem>
+      <MenuItem value="Kollam">Kollam</MenuItem>
+      <MenuItem value="Trivandrum">Trivandrum</MenuItem>
+      <MenuItem value="Kottayam">Kottayam</MenuItem>
+      <MenuItem value="Ernakulam">Ernakulam</MenuItem>
+    </Select> */}
+    <Input type='text'   value={filterPlace}
+      label="place"
+      onChange={(e) => setFilterPlace(e.target.value)}></Input>
+  </FormControl>
+  <Button variant='contained' onClick={sortDonors} >Search</Button>
+
+</Box>
+
+<Button variant='contained'   onClick={viewDonors}>view All</Button>
+
 
 
 {/* Downlod Button */}
@@ -117,6 +191,25 @@ function FindDonorPage() {
 
         <TableBody>
          
+  {
+    
+    filterActiveDonors.length > 0 ? (filterActiveDonors .map((item,index) => (
+  <TableRow key={index}>
+              <TableCell>{item.fullName}</TableCell>
+              <TableCell>{item.city}</TableCell>
+              <TableCell>{item.district}</TableCell>
+              <TableCell>{item.bloodType}</TableCell>
+              <TableCell>{item.phone}</TableCell>
+              <TableCell><Button className='btn btn-info'onClick={() => handleShare(item)}>Share</Button></TableCell>
+          </TableRow> 
+    ))):( <TableRow>
+        <TableCell colSpan={6} align="center">
+          <h3>No Donors Active</h3>
+        </TableCell>
+      </TableRow>)
+  }
+
+
   {
     
     activeDonors.length > 0 ? (activeDonors .map((item,index) => (
