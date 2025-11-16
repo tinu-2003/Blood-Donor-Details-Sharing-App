@@ -7,3 +7,7 @@ import { commonAPI } from "./CommonAPI";
 export const regDonors = async(reqBody)=>{
     return await commonAPI('POST',`${serverURL}/donors`,reqBody)
 }
+
+export const FindDonors = async()=>{
+    return await commonAPI('GET',`${serverURL}/donors`,{})
+}

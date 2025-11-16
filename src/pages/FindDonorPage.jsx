@@ -5,7 +5,24 @@ import { Button, Card, CardHeader, Container, FormControl, Input, InputLabel, Me
 import { Box, InputBase, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { Directions } from '@mui/icons-material';
+import { FindDonors } from '../services/allAPIs';
+import { useEffect, useState } from 'react';
 function FindDonorPage() {
+
+  const [donors,setDonors]=useState([])
+// console.log(donors);
+  const activeDonors = donors.filter(item => item.userStatus === 1);
+  const viewDonors = async()=>{
+
+    const response = await FindDonors()
+    // console.log(response);
+    setDonors(response.data)
+    
+  }
+
+  useEffect(()=>{
+    viewDonors()
+  },[])
  
   return (
     <>
@@ -99,127 +116,25 @@ function FindDonorPage() {
         </TableHead>
 
         <TableBody>
-         <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
-
-            <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
-
-
-            <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
-
-            <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
-
-            <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
-
-            <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>   <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
-            <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
-            <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
-            <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
-
-          <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
-
-          <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
-
-          <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
-
-          <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
+         
+  {
+    
+    activeDonors.length > 0 ? (activeDonors .map((item,index) => (
+  <TableRow key={index}>
+              <TableCell>{item.fullName}</TableCell>
+              <TableCell>{item.city}</TableCell>
+              <TableCell>{item.district}</TableCell>
+              <TableCell>{item.bloodType}</TableCell>
+              <TableCell>{item.phone}</TableCell>
+              <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
+          </TableRow> 
+    ))):( <TableRow>
+        <TableCell colSpan={6} align="center">
+          <h3>No Donors Active</h3>
+        </TableCell>
+      </TableRow>)
+  }
+         
         </TableBody>
 
       </Table>
