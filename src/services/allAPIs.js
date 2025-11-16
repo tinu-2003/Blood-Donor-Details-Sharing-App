@@ -11,3 +11,9 @@ export const regDonors = async(reqBody)=>{
 export const FindDonors = async()=>{
     return await commonAPI('GET',`${serverURL}/donors`,{})
 }
+
+// issue repots add
+
+export const issueDonors = async(reqBody)=>{
+    return await commonAPI('POST',`${serverURL}/issue`,reqBody)
+}

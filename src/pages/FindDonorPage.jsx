@@ -7,6 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Directions } from '@mui/icons-material';
 import { FindDonors } from '../services/allAPIs';
 import { useEffect, useState } from 'react';
+import ReportIssue from '../components/ReportIssue';
 function FindDonorPage() {
 // For filter
 const [filterBlood, setFilterBlood] = useState("");
@@ -180,12 +181,13 @@ const handleShare = (donor) => {
         
         <TableHead className='bg-light '>
        <TableRow>
-          <TableCell>Name</TableCell>
-          <TableCell>Place</TableCell>
-          <TableCell>District</TableCell>
-          <TableCell>BloodGroup</TableCell>
-          <TableCell>Contact Number</TableCell>
-          <TableCell>Share</TableCell>
+          <TableCell  className='text-center'>Name</TableCell>
+          <TableCell  className='text-center'>Place</TableCell>
+          <TableCell  className='text-center'>District</TableCell>
+          <TableCell  className='text-center'>BloodGroup</TableCell>
+          <TableCell  className='text-center'>Contact Number</TableCell>
+          <TableCell  className='text-center'>Share</TableCell>
+          <TableCell className='text-center'>Report if details<br/> are incorrect</TableCell>
        </TableRow>
         </TableHead>
 
@@ -195,16 +197,17 @@ const handleShare = (donor) => {
     
     filterActiveDonors.length > 0 ? (filterActiveDonors .map((item,index) => (
   <TableRow key={index}>
-              <TableCell>{item.fullName}</TableCell>
-              <TableCell>{item.city}</TableCell>
-              <TableCell>{item.district}</TableCell>
-              <TableCell>{item.bloodType}</TableCell>
-              <TableCell>{item.phone}</TableCell>
-              <TableCell><Button className='btn btn-info'onClick={() => handleShare(item)}>Share</Button></TableCell>
+              <TableCell  className='text-center'>{item.fullName}</TableCell>
+              <TableCell  className='text-center'>{item.city}</TableCell>
+              <TableCell  className='text-center'>{item.district}</TableCell>
+              <TableCell  className='text-center'>{item.bloodType}</TableCell>
+              <TableCell  className='text-center'>{item.phone}</TableCell>
+              <TableCell  className='text-center'><Button className='btn btn-info'onClick={() => handleShare(item)}>Share</Button></TableCell>
+              <TableCell  className='text-center'><ReportIssue/></TableCell>
           </TableRow> 
     ))):( <TableRow>
-        <TableCell colSpan={6} align="center">
-          <h3>No Donors Active</h3>
+        <TableCell colSpan={7} align="center">
+          <h3  className='text-center'>No Donors Active</h3>
         </TableCell>
       </TableRow>)
   }
@@ -214,16 +217,18 @@ const handleShare = (donor) => {
     
     activeDonors.length > 0 ? (activeDonors .map((item,index) => (
   <TableRow key={index}>
-              <TableCell>{item.fullName}</TableCell>
-              <TableCell>{item.city}</TableCell>
-              <TableCell>{item.district}</TableCell>
-              <TableCell>{item.bloodType}</TableCell>
-              <TableCell>{item.phone}</TableCell>
-              <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
+              <TableCell  className='text-center'>{item.fullName}</TableCell>
+              <TableCell  className='text-center'>{item.city}</TableCell>
+              <TableCell  className='text-center'>{item.district}</TableCell>
+              <TableCell  className='text-center'>{item.bloodType}</TableCell>
+              <TableCell  className='text-center'>{item.phone}</TableCell>
+              <TableCell  className='text-center'><Button className='btn btn-info'onClick={() => handleShare(item)}>Share</Button></TableCell>
+                          <TableCell  className='text-center'><ReportIssue donor={item}/></TableCell>
+
           </TableRow> 
     ))):( <TableRow>
         <TableCell colSpan={6} align="center">
-          <h3>No Donors Active</h3>
+          <h3  className='text-center'>No Donors Active</h3>
         </TableCell>
       </TableRow>)
   }
