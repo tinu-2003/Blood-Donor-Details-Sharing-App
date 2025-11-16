@@ -14,6 +14,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import RegisterDonor from '../components/RegisterDonor';
 
 function EligibilityCheck() {
   return (
@@ -81,13 +82,8 @@ function EligibilityCheck() {
       {/* Action Buttons */}
       <Box>
        
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-        >
-          Register as Donor
-        </Button>
+       
+       <RegisterDonor/>
       </Box>
     </Box>
 
