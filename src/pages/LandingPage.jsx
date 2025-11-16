@@ -81,7 +81,7 @@ function LandingPage() {
             justifyContent="center"
             alignItems="center"
           >
-      <Link to={'/scheduledonation'}>
+      <Link to={'/finddonorpage'} >
               <Button
                 variant="contained"
                 href="#appointment-form"
@@ -89,7 +89,7 @@ function LandingPage() {
                 sx={{
                   bgcolor: "error.main",
                   color: "white",
-                  px: 5,
+                  px: 10,
                   py: 1.5,
                   fontWeight: "bold",
                   borderRadius: "12px",
@@ -104,11 +104,11 @@ function LandingPage() {
                   transition: "all 0.3s ease",
                 }}
               >
-                Schedule Donation
+                Find Donors 
               </Button>
       </Link>
 
-           <Link to={'/finddonorpage'}>
+           <Link to={'/scheduledonation'} >
               <Button
                 variant="outlined"
                 href="#donor-search"
@@ -128,7 +128,7 @@ function LandingPage() {
                   transition: "all 0.3s ease",
                 }}
               >
-                Find Donors   
+                Schedule Donation 
               </Button>
            </Link>
           </Stack>

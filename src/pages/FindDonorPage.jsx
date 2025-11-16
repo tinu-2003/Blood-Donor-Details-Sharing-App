@@ -73,14 +73,14 @@ const handleShare = (donor) => {
   <Container maxWidth='lg'>
 
     {/* Heading */}
-   <div className='text-center p-5'>
+   <div className='text-center p-3'>
       <Typography variant='h2' sx={{color:"error.main" ,fontWeight:600,textTransform:"uppercase",display:'block'}}>Find Blood Donors</Typography>
       <Typography variant='h6' sx={{fontWeight:'600', color:'text.secondary'}}>You Can Find Donors Near To You</Typography>
    </div>
 
    {/* Search Option */}
    
-<Box sx={{ display: 'flex', gap: 2, mt: 3, justifyContent: 'center' }}>
+<Box sx={{ display: 'flex', gap: 2, mt: 1, justifyContent: 'center' }}>
   
   {/* Blood Group Filter */}
   <FormControl sx={{ minWidth: 150 }}>
@@ -137,16 +137,16 @@ const handleShare = (donor) => {
       label="place"
       onChange={(e) => setFilterPlace(e.target.value)}></Input>
   </FormControl>
-  <Button variant='contained' onClick={sortDonors} >Search</Button>
+  <Button variant='contained' onClick={sortDonors}  >Search</Button>
 
 </Box>
-
-<Button variant='contained'   onClick={viewDonors}>view All</Button>
+{/* view all button */}
+<Box className='text-center mt-5'><Button variant='contained'   onClick={viewDonors}>view All</Button></Box>
 
 
 
 {/* Downlod Button */}
-<Box className ='text-end' sx={{ textAlign: 'center', mt: 2 }}>
+<Box className ='text-end' sx={{ textAlign: 'center' }}>
       <Button
         variant="contained"
         color="primary"
@@ -203,7 +203,8 @@ const handleShare = (donor) => {
               <TableCell  className='text-center'>{item.bloodType}</TableCell>
               <TableCell  className='text-center'>{item.phone}</TableCell>
               <TableCell  className='text-center'><Button className='btn btn-info'onClick={() => handleShare(item)}>Share</Button></TableCell>
-              <TableCell  className='text-center'><ReportIssue/></TableCell>
+                                     <TableCell  className='text-center'><ReportIssue donor={item}/></TableCell>
+
           </TableRow> 
     ))):( <TableRow>
         <TableCell colSpan={7} align="center">

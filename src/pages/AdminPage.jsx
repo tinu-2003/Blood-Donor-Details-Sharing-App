@@ -7,22 +7,92 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import {  InputLabel, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
 import { TableBar } from '@mui/icons-material';
-
 import { useState } from 'react';
 import Footer from "../components/Footer";
+import { AllUsers, issueviewAdmin, updateUserStatus } from "../services/allAPIs";
+import { useEffect } from "react";
+
+
+
 
 function AdminPage() {
-  const [value, setValue] = React.useState('1');
- const handleChange = (event, newValue) => {
+
+
+  // usestae for all user data
+  const [allUserData,SetAllUserData]=useState([])
+  const [reportIssue,SetReportIssue]=useState([])
+  const [data,SetData]=useState({
+    fullName: "",
+    district: "",
+    phone: "",
+    bloodType: "",
+    gender: "",
+    city: "",
+    age: "",
+    userStatus:0
+    })
+
+  const newDonors = allUserData.filter(item => item.userStatus === 0);
+  const activeDonors = allUserData.filter(item => item.userStatus === 1);
+  const inactiveDonors = allUserData.filter(item => item.userStatus === 2);
+  const filterissue = reportIssue.filter(item => item.userCode)
+  // console.log(allUserData);
+  
+  const [value, setValue] = useState('1');
+  const handleChange = (event, newValue) => {
+    console.log(newValue);
+    
     setValue(newValue);
       };
-
       // Select box 
-      const [aprovell ,setAprovell]= useState('cd')
 
-       const handleChange1 = (event) => {
-    setAprovell(event.target.value);
-  };
+
+  // Api function and other logic
+
+  // api for all users
+  const alluserview = async()=>{
+      const response = await AllUsers()
+      // console.log(response.data);
+      SetAllUserData(response.data)
+      
+  }
+
+  // Api for issue view 
+
+  const issueview = async() =>{
+    const response = await issueviewAdmin()
+    // console.log(response);
+    SetReportIssue(response.data)
+  }
+    //  handleApprovalChange
+const handleApprovalChange = async (index, userId, value) => {
+
+  const statusValue = value === "approved" ? 1 : 2;
+  // alert(statusValue);
+     
+   const response= await updateUserStatus(userId, data);
+   console.log(response);
+   
+};
+
+    
+ 
+
+
+
+useEffect(() => {
+  alluserview();
+  issueview();
+}, []);
+
+// Share option 
+
+const handleShare = (donor) => {
+  const message = `Donor Info:\nName: ${donor.fullName}\nBlood: ${donor.bloodType}\nPlace: ${donor.city}, ${donor.district}\nPhone: ${donor.phone}`;
+  const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank');
+};
+
   return (
     <>
     {/* header */}
@@ -64,12 +134,13 @@ function AdminPage() {
             <Tab label="All users" value="1" />
             <Tab label="New Users" value="2" />
             <Tab label="InActive user" value="3" />
+            <Tab label=" user" value="4" />
           </TabList>
         </Box>
         {/*All Users  */}
         <TabPanel value="1">
           {/* Heading */}
-        <Typography variant='h3'  className='text-center m-4' >All User</Typography>
+        <Typography variant='h3'  className='text-center m-4' >Active User</Typography>
         {/* Download Button */}
       <div className='text-end p-2'>  
         <Button className='btn btn-info '>Download</Button>
@@ -91,82 +162,29 @@ function AdminPage() {
         </TableHead>
 
         <TableBody>
-         <TableRow>
+         {/* <TableRow>
             <TableCell>Tinu</TableCell>
             <TableCell>Ayoor</TableCell>
             <TableCell>Kollam</TableCell>
             <TableCell>0+</TableCell>
             <TableCell>8113044487</TableCell>
             <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
+         </TableRow>        */}
+{
+  activeDonors.length > 0 ? (activeDonors.map((item,index)=>(
+<TableRow key={index}>
+            <TableCell>{item.fullName}</TableCell>
+            <TableCell>{item.city}</TableCell>
+            <TableCell>{item.district}</TableCell>
+            <TableCell>{item.bloodType}</TableCell>
+            <TableCell>{item.phone}</TableCell>
+                       <TableCell  className='text-center'><Button className='btn btn-info'onClick={() => handleShare(item)}>Share</Button></TableCell>
+         
+         </TableRow>  
 
-                  <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>         <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>         <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
+  ))):(<p>Data loading</p>)
+}
 
-                  <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
-
-          <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
-
-          <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
-
-          <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
-
-          <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>
         </TableBody>
 
       </Table>
@@ -200,120 +218,45 @@ function AdminPage() {
         </TableHead>
 
         <TableBody>
-         <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell>
-               
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={aprovell}
-          onChange={handleChange1} sx={{
-            width:'100%'
-          }}
-        >
-          <MenuItem value={10}>App</MenuItem>
-          <MenuItem value={20}>reject</MenuItem>
-        </Select>
-      
-            </TableCell>
-         </TableRow>    
+       {
+  newDonors.length > 0 ? (newDonors.map((item,index)=>(
+<TableRow key={index}>
+            <TableCell>{item.fullName}</TableCell>
+            <TableCell>{item.city}</TableCell>
+            <TableCell>{item.district}</TableCell>
+            <TableCell>{item.bloodType}</TableCell>
+            <TableCell>{item.phone}</TableCell>
 
-           <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell>
-               
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={aprovell}
-          onChange={handleChange1} sx={{
-            width:'100%'
-          }}
-        >
-          <MenuItem value={10}>App</MenuItem>
-          <MenuItem value={20}>reject</MenuItem>
-        </Select>
-      
-            </TableCell>
-         </TableRow>    
+                  <TableCell>
+                <Select
 
-           <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell>
-               
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={aprovell}
-          onChange={handleChange1} sx={{
-            width:'100%'
-          }}
-        >
-          <MenuItem value={10}>App</MenuItem>
-          <MenuItem value={20}>reject</MenuItem>
-        </Select>
-      
-            </TableCell>
-         </TableRow>    
+                value={data.userStatus === 0
+        ? ""
+        : item.userStatus === 1
+        ? "approved"
+        : "rejected"}
+       onChange={(e)=>handleApprovalChange({...data,userStatus:e.target.value})}
+    
+  
+    sx={{ width: '100%' }}
+    displayEmpty
+  >
+    <MenuItem value="">Pending</MenuItem>
+    <MenuItem value="approved">Approve</MenuItem>
+    <MenuItem value="rejected">Reject</MenuItem>
+  </Select>
+                </TableCell>
+         
+         </TableRow>  
 
-           <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell>
+  ))):(<p>Data loading</p>)
+}
                
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={aprovell}
-          onChange={handleChange1} sx={{
-            width:'100%'
-          }}
-        >
-          <MenuItem value={10}>App</MenuItem>
-          <MenuItem value={20}>reject</MenuItem>
-        </Select>
       
-            </TableCell>
-         </TableRow>    
+      
+           
+         
 
-           <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell>
-               
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={aprovell}
-          onChange={handleChange1} sx={{
-            width:'100%'
-          }}
-        >
-          <MenuItem value={10}>App</MenuItem>
-          <MenuItem value={20}>reject</MenuItem>
-        </Select>
-      
-            </TableCell>
-         </TableRow>    
          
         </TableBody>
 
@@ -347,59 +290,67 @@ function AdminPage() {
         </TableHead>
 
         <TableBody>
-         <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell> <Button variant='contained'>Ativate</Button></TableCell>
-         </TableRow>   
+        {
+  inactiveDonors.length > 0 ? (inactiveDonors.map((item,index)=>(
+<TableRow key={index}>
+            <TableCell>{item.fullName}</TableCell>
+            <TableCell>{item.city}</TableCell>
+            <TableCell>{item.district}</TableCell>
+            <TableCell>{item.bloodType}</TableCell>
+            <TableCell>{item.phone}</TableCell>
+                       <TableCell  className='text-center'><Button variant="contented">Activate</Button></TableCell>
+         
+         </TableRow>  
 
-            <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell> <Button variant='contained'>Ativate</Button></TableCell>
-         </TableRow>    
+  ))):(<p>Data loading</p>)
+}
 
-            <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell> <Button variant='contained'>Ativate</Button></TableCell>
-         </TableRow>   
+            
+        </TableBody>
 
-            <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell> <Button variant='contained'>Ativate</Button></TableCell>
-         </TableRow>   
+      </Table>
+      </TableContainer>
+      </Paper>
+        </TabPanel>
 
-            <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell> <Button variant='contained'>Ativate</Button></TableCell>
-         </TableRow>   
+         <TabPanel value="4">
 
-            <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell> <Button variant='contained'>Ativate</Button></TableCell>
-         </TableRow>   
+           {/* Heading */}
+        <Typography variant='h3'  className='text-center m-4' >Issues User</Typography>
+        {/* Download Button */}
+      <div className='text-end p-2'>  
+        <Button className='btn btn-info '>Download</Button>
+        </div>
+        {/* Table */}
+      <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+      <TableContainer sx={{ maxHeight: 440 }}>
+      <Table className='w-full'>
+        
+        <TableHead className='bg-light '>
+       <TableRow>
+          <TableCell className="text-center">Name</TableCell>
+          <TableCell className="text-center">Place</TableCell>
+          <TableCell className="text-center">District</TableCell>
+          {/* <TableCell>BloodGroup</TableCell>
+          <TableCell>Contact Number</TableCell>
+          <TableCell>Approvel</TableCell> */}
+       </TableRow>
+        </TableHead>
+
+        <TableBody>
+         {
+  filterissue.length > 0 ? (filterissue.map((item,index)=>(
+<TableRow key={index}>
+            <TableCell className="text-center">{item.userCode}</TableCell>
+            <TableCell className="text-center">{item.reason}</TableCell>
+            <TableCell  className='text-center'><Button variant="outlined" color="error">Resove Now</Button></TableCell>
+         
+         </TableRow>  
+
+  ))):(<p>Data loading</p>)
+}
+
+          
 
         </TableBody>
 

@@ -3,6 +3,7 @@ import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, T
 import { issueDonors } from '../services/allAPIs';
 
 function ReportIssue({ donor }) {
+   if (!donor) return null;
   const [open, setOpen] = useState(false);
   const [reason, setReason] = useState('');
   const [issue, setIssue] = useState('');
