@@ -3,8 +3,7 @@ import SvgIcon from "@mui/material/SvgIcon";
 import RegisterDonor from "./RegisterDonor";
 
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
 
 
 function Header() {
@@ -36,26 +35,12 @@ function Header() {
           </Typography>
         </Box>
 
-        {/* Desktop Navigation */}
-        <Stack direction="row" spacing={8} sx={{ display: { xs: "none", md: "flex" } }}>
-          {["Home", "Find Drive", "Find Donor", "Eligibility"].map((link) => (
-            <Button
-              key={link}
-              href=''
-              sx={{
-                color: "text.secondary",
-                fontWeight: 700,
-                px: 2,
-                "&:hover": { color: "error.main", transition: "all 0.15s" },
-              }}
-            >
-              {link}
-            </Button>
-          ))}
-        </Stack>
+       
 
         {/* Register Donor Button */}
-     <RegisterDonor/>
+ <div>    
+  <RegisterDonor/>
+  </div>
 
       </Toolbar>
     </AppBar>

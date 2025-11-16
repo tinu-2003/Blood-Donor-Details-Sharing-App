@@ -14,6 +14,7 @@ import {
 
 } from "@mui/material";
 import { useState } from "react";
+import { regDonors } from "../services/allAPIs";
 
 // 
 
@@ -26,12 +27,13 @@ function RegisterDonor() {
 
   const [formData, setFormData] = useState({
     fullName: "",
-    email: "",
+    district: "",
     phone: "",
     bloodType: "",
     gender: "",
     city: "",
     age: "",
+    userStatus:0
   });
 
   const bloodTypes = ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"];
@@ -39,19 +41,50 @@ function RegisterDonor() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    console.log(e);
+    
   };
 
-  const handleSubmit = () => {
-    console.log("Form Data Submitted:", formData);
+  const handleSubmit = async() => {
+// validation 
+
+// Form input box validation
+    if (!formData.fullName || !formData.phone || !formData.bloodType || 
+      !formData.gender || !formData.age || !formData.city || !formData.district) {
+    alert("Please fill all fields!");
+    return;
+  }
+// Phone validation
+
+   if (formData.phone.length < 10 ) {
+    alert("Phone number must be at least 10 digits!");
+    return;
+  }
+// age validation
+    if (formData.age < 18) {
+    alert("You must be at least 18 years old to donate blood!");
+    return;
+  }
+
+
+  const response = await regDonors(formData)
+  console.log(response.status);
+  
+//   last alert
+if(response.status == 201){
+
+        console.log("Form Data Submitted:", formData);
     setOpen(false);
     alert("✅ Registration submitted successfully!");
-  };
 
-  // 
+}
+else{
 
-     const registerDonor = () => {
-    console.log("Register Donor clicked!");
-    // Add your logic here
+    alert("Error...! Your data not registered please try  again latter....")
+}
+
+
+
   };
 
   return (
