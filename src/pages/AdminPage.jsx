@@ -13,7 +13,10 @@ import { AllUsers, DeleteuserAdmin, issueviewAdmin, updateuserAdmin, updateUserS
 import { useEffect } from "react";
 import IssueResolve from "../components/IssueResolve";
 import Swal from 'sweetalert2'
-
+import { Link } from "react-router-dom";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import { FaFileDownload } from "react-icons/fa";
 
 
 
@@ -66,7 +69,7 @@ function AdminPage() {
 const updateUserStatus2 = async (userId, value) => {
   const response = await updateUserStatusAPI(userId, { userStatus: value });
   console.log(response);
-  if(response.status == 201){
+  if(response.status == 200){
      Swal.fire({
       title: 'Updated!',
       text: ' sucessfull',
@@ -105,7 +108,7 @@ const activateUser = async(userdata)=>{
   
   const response = await updateuserAdmin(userdata.id, updatestatus)
   console.log(response);
- if(response.status == 201){
+ if(response.status == 200){
      Swal.fire({
       title: 'Updated!',
       text: ' sucessfull',
@@ -116,7 +119,7 @@ const activateUser = async(userdata)=>{
 else{
      Swal.fire({
       title: 'error!',
-      text: ' Try again',
+      text: ' Try again. work...',
       icon: 'error',
       confirmButtonText: 'Okay'
     })
@@ -130,7 +133,7 @@ const deleteUser = async(id)=>{
   const response = await DeleteuserAdmin(id)
   console.log(response);
   
- if(response.status == 201){
+ if(response.status == 200){
      Swal.fire({
       title: 'Deleted!',
       text: ' sucessfull',
@@ -159,6 +162,153 @@ const handleShare = (donor) => {
   const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
   window.open(url, '_blank');
 };
+
+// Download data
+     
+// allActive user download
+                
+const allActiveuserDownload = async()=>{
+
+  const doc = new jsPDF();
+
+  const headers =[
+    ["Name","Place","District","Blood Group","Phone"]
+  ];
+
+  const row = activeDonors.map(item=>[
+    item.fullName,
+    item.city,
+    item.district,
+    item.bloodType,
+    item.phone
+  ]);
+
+  autoTable(doc,{
+    head:headers,
+    body:row,
+    theme:"grid",
+    headStyles:{
+      fillColor:[22,160,133],
+      halign:"center"
+    },
+    styles:{
+      halign:"center",
+      fontSize:10
+    },
+    startY:20
+  });
+
+  doc.save("Active_donor_list.pdf")
+}  
+
+// new  user list  download
+
+const NewuserDownload = async()=>{
+
+  const doc = new jsPDF();
+
+  const headers =[
+    ["Name","Place","District","Blood Group","Phone"]
+  ];
+
+  const row = newDonors.map(item=>[
+    item.fullName,
+    item.city,
+    item.district,
+    item.bloodType,
+    item.phone
+  ]);
+
+  autoTable(doc,{
+    head:headers,
+    body:row,
+    theme:"grid",
+    headStyles:{
+      fillColor:[22,160,133],
+      halign:"center"
+    },
+    styles:{
+      halign:"center",
+      fontSize:10
+    },
+    startY:20
+  });
+
+  doc.save("New_donor_list.pdf")
+}  
+
+// inActive user list download
+
+const inactiveuserDownload = async()=>{
+
+  const doc = new jsPDF();
+
+  const headers =[
+    ["Name","Place","District","Blood Group","Phone"]
+  ];
+
+  const row = inactiveDonors.map(item=>[
+    item.fullName,
+    item.city,
+    item.district,
+    item.bloodType,
+    item.phone
+  ]);
+
+  autoTable(doc,{
+    head:headers,
+    body:row,
+    theme:"grid",
+    headStyles:{
+      fillColor:[22,160,133],
+      halign:"center"
+    },
+    styles:{
+      halign:"center",
+      fontSize:10
+    },
+    startY:20
+  });
+
+  doc.save("Inactive_donor_list.pdf")
+} 
+
+// Issues Download list 
+const userissueDownload = async()=>{
+
+  const doc = new jsPDF();
+
+  const headers =[
+    ["Name","Reson","Phone"]
+  ];
+
+  const row = filterissue.map(item=>[
+    item.userName,
+    item.reason,
+    item.phone
+   
+  ]);
+
+  autoTable(doc,{
+    head:headers,
+    body:row,
+    theme:"grid",
+    headStyles:{
+      fillColor:"red",
+      halign:"center"
+    },
+    styles:{
+      halign:"center",
+      fontSize:10
+    },
+    startY:20
+  });
+
+  doc.save("issues_donorusers_list.pdf")
+} 
+
+
+
 
   return (
     <>
@@ -223,7 +373,7 @@ const handleShare = (donor) => {
 
     {/* Right Side Buttons (sample) */}
     <Box sx={{ display: "flex", gap: 2 }}>
-      <Button variant="outlined" color="error">Logout</Button>
+     <Link to={'/'}> <Button variant="outlined" color="error">Logout</Button></Link>
     </Box>
 
   </Toolbar>
@@ -240,7 +390,7 @@ const handleShare = (donor) => {
             <Tab label="All users" value="1" />
             <Tab label="New Users" value="2" />
             <Tab label="InActive user" value="3" />
-            <Tab label=" user" value="4" />
+            <Tab label=" Issues user" value="4" />
           </TabList>
         </Box>
         {/*All Users  */}
@@ -248,8 +398,8 @@ const handleShare = (donor) => {
           {/* Heading */}
         <Typography variant='h3'  className='text-center m-4' >Active User</Typography>
         {/* Download Button */}
-      <div className='text-end p-2'>  
-        <Button className='btn btn-info '>Download</Button>
+      <div className='text-end ' width="100%">  
+        <Button onClick={allActiveuserDownload} className="w-full"><FaFileDownload size={30}/></Button>
         </div>
         {/* Table */}
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -304,9 +454,9 @@ const handleShare = (donor) => {
      {/* Heading */}
         <Typography variant='h3'  className='text-center m-4' >New User</Typography>
         {/* Download Button */}
-      <div className='text-end p-2'>  
-        <Button className='btn btn-info '>Download</Button>
-        </div>
+     { newDonors.length > 0 ? <div className='text-end '>  
+        <Button onClick={NewuserDownload} className="w-full"><FaFileDownload size={30}/></Button>
+        </div>:""}
         {/* Table */}
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 440 }}>
@@ -346,7 +496,7 @@ const handleShare = (donor) => {
          
          </TableRow>  
 
-  ))):(<p>Data loading</p>)
+  ))):(<p className="text-center m-5">All Done</p>)
 }
                
       
@@ -367,9 +517,9 @@ const handleShare = (donor) => {
            {/* Heading */}
         <Typography variant='h3'  className='text-center m-4' >InActive User</Typography>
         {/* Download Button */}
-      <div className='text-end p-2'>  
-        <Button className='btn btn-info '>Download</Button>
-        </div>
+      { inactiveDonors.length > 0 ?<div className='text-end'>  
+         <Button onClick={inactiveuserDownload } className="w-full"><FaFileDownload size={30}/></Button>
+        </div> :""}
         {/* Table */}
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 440 }}>
@@ -417,9 +567,9 @@ const handleShare = (donor) => {
            {/* Heading */}
         <Typography variant='h3'  className='text-center m-4' >Issues User</Typography>
         {/* Download Button */}
-      <div className='text-end p-2'>  
-        <Button className='btn btn-info '>Download</Button>
-        </div>
+      { filterissue.length > 0 ? <div className='text-end p-2'>  
+        <Button onClick={userissueDownload } className="w-full"><FaFileDownload size={30}/></Button>
+        </div>:""}
         {/* Table */}
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 440 }}>
