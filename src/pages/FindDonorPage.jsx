@@ -206,11 +206,7 @@ const handleShare = (donor) => {
                                      <TableCell  className='text-center'><ReportIssue donor={item}/></TableCell>
 
           </TableRow> 
-    ))):( <TableRow>
-        <TableCell colSpan={7} align="center">
-          <h3  className='text-center'>No Donors Active</h3>
-        </TableCell>
-      </TableRow>)
+    ))):""
   }
 
 
@@ -227,11 +223,7 @@ const handleShare = (donor) => {
                           <TableCell  className='text-center'><ReportIssue donor={item}/></TableCell>
 
           </TableRow> 
-    ))):( <TableRow>
-        <TableCell colSpan={6} align="center">
-          <h3  className='text-center'>No Donors Active</h3>
-        </TableCell>
-      </TableRow>)
+    ))):""
   }
          
         </TableBody>
