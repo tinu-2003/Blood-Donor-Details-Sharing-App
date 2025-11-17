@@ -1,6 +1,8 @@
 import React from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import Swal from 'sweetalert2'
+
 import {   Box,
   Grid,
   Typography,
@@ -49,10 +51,10 @@ function ScheduleDonation() {
         </Typography>
 
         {/* Input Section */}
-        <Grid container spacing={3} sx={{ mt: 2, ml:10}} >
+        {/* <Grid container spacing={3} sx={{ mt: 2, ml:10}} > */}
           {/* Location */}
           <Grid item xs={12} md={4}>
-            <Typography
+            {/* <Typography
               variant="subtitle2"
               fontWeight={600}
               color="text.secondary"
@@ -66,10 +68,10 @@ function ScheduleDonation() {
               value={''}
             
             />
-          </Grid>
+          </Grid> */}
 
           {/* Date */}
-          <Grid item xs={12} md={4}>
+          {/* <Grid item xs={12} md={4}>
             <Typography
               variant="subtitle2"
               fontWeight={600}
@@ -84,10 +86,10 @@ function ScheduleDonation() {
               value={''}
            
             />
-          </Grid>
+          </Grid> */}
 
           {/* Blood Type */}
-          <Grid item xs={12} md={4}>
+          {/* <Grid item xs={12} md={4}>
             <Typography
               variant="subtitle2"
               fontWeight={600}
@@ -109,11 +111,11 @@ function ScheduleDonation() {
               <MenuItem value="A-pos">A Positive</MenuItem>
               <MenuItem value="B-pos">B Positive</MenuItem>
             </TextField>
-          </Grid>
+          </Grid> */}
         </Grid>
 
         {/* Search Button */}
-        <Box textAlign="center" sx={{ mt: 5 }}>
+        {/* <Box textAlign="center" sx={{ mt: 5 }}>
           <Button
             variant="contained"
             size="large"
@@ -131,7 +133,7 @@ function ScheduleDonation() {
           >
             Search Drives
           </Button>
-        </Box>
+        </Box> */}
 
         {/* Results Section */}
         <Box sx={{ mt: 6 }}>
@@ -140,7 +142,7 @@ function ScheduleDonation() {
             fontWeight="bold"
             sx={{ mb: 2, pb: 1, borderBottom: "2px solid #ddd" }}
           >
-            Available Drives Near You:
+            Available Drives
           </Typography>
 
           {/* Result Card 1 */}
@@ -181,7 +183,12 @@ function ScheduleDonation() {
                 variant="contained"
                 color="error"
                 sx={{ borderRadius: "50px", mt: { xs: 2, md: 0 } }}
-                onClick={() => alert('Booked Sucessful')}
+                onClick={() => Swal.fire({
+  title: 'Booked Sucessful',
+  text: ' Thank You for the bookingOur.Team will contact you Soon',
+  icon: 'success',
+  confirmButtonText: 'Okay'
+})}
               >
                 Book 10:00 AM
               </Button>
@@ -226,7 +233,12 @@ function ScheduleDonation() {
                 variant="contained"
                 color="error"
                 sx={{ borderRadius: "50px", mt: { xs: 2, md: 0 } }}
-                onClick={() => alert('Booked Sucessful')}
+                onClick={() => Swal.fire({
+  title: 'Booked Sucessful',
+  text: ' Thank You for the bookingOur.Team will contact you Soon',
+  icon: 'success',
+  confirmButtonText: 'Okay'
+})}
               >
                 Book 01:30 PM
               </Button>
@@ -270,7 +282,12 @@ function ScheduleDonation() {
                 variant="contained"
                 color="error"
                 sx={{ borderRadius: "50px", mt: { xs: 2, md: 0 } }}
-                onClick={() => alert('Booked Sucessful')}
+                onClick={() =>Swal.fire({
+  title: 'Booked Sucessful',
+  text: ' Thank You for the bookingOur.Team will contact you Soon',
+  icon: 'success',
+  confirmButtonText: 'Okay'
+})}
               >
                 Book 04:00 PM
               </Button>

@@ -102,6 +102,7 @@ import {
   SvgIcon
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -161,10 +162,13 @@ export default function Navbar() {
                 {item}
               </Button>
             ))} */}
+           <Link to={'/finddonorpage'}> <Button variant="outlined" color="error">FindDonor</Button></Link>
 
-            <Button variant="outlined" color="error">Eligiblity</Button>
-            <Button variant="outlined" color="error">Schedule Donation</Button>
-
+           <Link to={'/eligibilitycheck'}> <Button variant="outlined" color="error">Eligiblity</Button></Link>
+          <Link to={'/scheduledonation'}>
+              <Button variant="outlined" color="error">Schedule Donation</Button>
+  
+          </Link>
           {/* logButton */}
           <LoginPage/>
 
@@ -192,8 +196,15 @@ export default function Navbar() {
 
       {/* MOBILE DRAWER */}
       <Drawer anchor="center" open={openDrawer} onClose={() => setOpenDrawer(false)}>
-        <Box sx={{ width: 250 }}>
-          <List>
+        <Box  sx={{
+      width: { xs: "90%", sm: 250 },   // Responsive width
+      display: "flex",
+      flexDirection: "column",
+      gap: 2,                          // Space between buttons
+      p: 3,                            // Padding inside drawer
+      alignItems: "stretch",           // Buttons take full width
+    }}>
+       
             {/* {menuItems.map((text) => (
               <ListItem key={text} disablePadding>
                 <ListItemButton>
@@ -201,20 +212,17 @@ export default function Navbar() {
                 </ListItemButton>
               </ListItem>
             ))} */}
-             <Button>Eligiblity</Button>
-            <Button>Schedule Donation</Button>
+           <Link to={'/finddonorpage'}> <Button variant="outlined" color="error">FindDonor</Button></Link>
 
-            <ListItem>
-              <Button fullWidth variant="outlined" color="error">
-                Login
-              </Button>
-            </ListItem>
-            <ListItem>
-              <Button fullWidth variant="contained" color="error">
-                Register
-              </Button>
-            </ListItem>
-          </List>
+              <Link to={'/eligibilitycheck'}><Button variant="outlined" color="error">Eligiblity</Button></Link>
+          <Link to={'/scheduledonation'}>  <Button variant="outlined" color="error">Schedule Donation</Button></Link>
+
+          {/* logButton */}
+          <LoginPage/>
+
+             {/* reg button */}
+                      <RegisterDonor />
+          
         </Box>
       </Drawer>
     </>

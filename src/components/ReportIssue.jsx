@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Typography, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { issueDonors } from '../services/allAPIs';
+import Swal from 'sweetalert2'
 
 function ReportIssue({ donor }) {
    if (!donor) return null;
@@ -29,8 +30,23 @@ function ReportIssue({ donor }) {
   };
     const  response = await issueDonors(reportData)
     console.log(response.status);
-    
-    alert('Report submitted successfully!');
+    if(response.status == 201){
+         Swal.fire({
+          title: 'submitted!',
+          text: ' Report submitted successfully!',
+          icon: 'success',
+          confirmButtonText: 'Okay'
+        })
+      }
+    else{
+         Swal.fire({
+          title: 'error!',
+          text: ' Try again',
+          icon: 'error',
+          confirmButtonText: 'Okay'
+        })
+    }
+   
     handleClose();
   };
   return (

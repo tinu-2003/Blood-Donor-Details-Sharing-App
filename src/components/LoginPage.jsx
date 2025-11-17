@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import { Input } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import Swal from 'sweetalert2'
 
 
 const style = {
@@ -41,10 +41,22 @@ function LoginPage() {
 const loginAdmin =()=>{
 if(userName && userName=="admin@123" && userPassword && userPassword=="0000"){
     navigate("/adminpage")
-    alert("login")
+  
+
+    Swal.fire({
+  title: 'login sucessFull!',
+  text: '.',
+  icon: 'success',
+  confirmButtonText: 'Okay'
+})
 }
 else{
-    alert("not login")
+     Swal.fire({
+  title: 'login UnsucessFull!',
+  text: '.',
+  icon: 'error',
+  confirmButtonText: 'Cool'
+})
 }
 }
 

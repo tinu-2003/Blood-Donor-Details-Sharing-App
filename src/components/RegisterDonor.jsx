@@ -1,4 +1,5 @@
 // import React, { useState } from "react";
+import Swal from 'sweetalert2'
 import {
   
 
@@ -51,18 +52,40 @@ function RegisterDonor() {
 // Form input box validation
     if (!formData.fullName || !formData.phone || !formData.bloodType || 
       !formData.gender || !formData.age || !formData.city || !formData.district) {
-    alert("Please fill all fields!");
+
+                    Swal.fire({
+  title: 'Error!',
+  text: 'Please fill all fields!',
+  icon: 'error',
+  confirmButtonText: 'Okay'
+})
+  
     return;
   }
 // Phone validation
 
    if (formData.phone.length < 10 ) {
-    alert("Phone number must be at least 10 digits!");
+
+            Swal.fire({
+  title: 'Error!',
+  text: ' Phone number must be at least 10 digits!',
+  icon: 'error',
+  confirmButtonText: 'Okay'
+})
+   
+   
     return;
   }
 // age validation
     if (formData.age < 18) {
-    alert("You must be at least 18 years old to donate blood!");
+
+        Swal.fire({
+  title: 'Under Age!',
+  text: ' You must be at least 18 years old to donate blood!',
+  icon: 'error',
+  confirmButtonText: 'Okay'
+})
+    
     return;
   }
 
@@ -75,12 +98,26 @@ if(response.status == 201){
 
         console.log("Form Data Submitted:", formData);
     setOpen(false);
-    alert("✅ Registration submitted successfully!");
+
+    Swal.fire({
+  title: 'Registration submitted successfully!',
+  text: ' Thank You.Team will contact you Soon',
+  icon: 'success',
+  confirmButtonText: 'Okay'
+})
+  
 
 }
 else{
 
-    alert("Error...! Your data not registered please try  again latter....")
+
+   Swal.fire({
+  title: 'Error...!',
+  text: '  Your data not registered please try  again latter....',
+  icon: 'error',
+  confirmButtonText: 'Okay'
+})
+  
 }
 
 

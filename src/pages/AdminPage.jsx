@@ -12,6 +12,7 @@ import Footer from "../components/Footer";
 import { AllUsers, DeleteuserAdmin, issueviewAdmin, updateuserAdmin, updateUserStatusAPI } from "../services/allAPIs";
 import { useEffect } from "react";
 import IssueResolve from "../components/IssueResolve";
+import Swal from 'sweetalert2'
 
 
 
@@ -64,7 +65,24 @@ function AdminPage() {
 
 const updateUserStatus2 = async (userId, value) => {
   const response = await updateUserStatusAPI(userId, { userStatus: value });
-  console.log("Updated:", response);
+  console.log(response);
+  if(response.status == 201){
+     Swal.fire({
+      title: 'Updated!',
+      text: ' sucessfull',
+      icon: 'success',
+      confirmButtonText: 'Okay'
+    })
+  }
+else{
+     Swal.fire({
+      title: 'error!',
+      text: ' Try again',
+      icon: 'error',
+      confirmButtonText: 'Okay'
+    })
+}
+
   alluserview();
 
 };
@@ -87,7 +105,24 @@ const activateUser = async(userdata)=>{
   
   const response = await updateuserAdmin(userdata.id, updatestatus)
   console.log(response);
-  alert("user actvated")
+ if(response.status == 201){
+     Swal.fire({
+      title: 'Updated!',
+      text: ' sucessfull',
+      icon: 'success',
+      confirmButtonText: 'Okay'
+    })
+  }
+else{
+     Swal.fire({
+      title: 'error!',
+      text: ' Try again',
+      icon: 'error',
+      confirmButtonText: 'Okay'
+    })
+}
+
+  alluserview();
 }
 
 const deleteUser = async(id)=>{
@@ -95,7 +130,24 @@ const deleteUser = async(id)=>{
   const response = await DeleteuserAdmin(id)
   console.log(response);
   
-  alert('delete user')
+ if(response.status == 201){
+     Swal.fire({
+      title: 'Deleted!',
+      text: ' sucessfull',
+      icon: 'success',
+      confirmButtonText: 'Okay'
+    })
+  }
+else{
+     Swal.fire({
+      title: 'error!',
+      text: ' Try again',
+      icon: 'error',
+      confirmButtonText: 'Okay'
+    })
+}
+
+  alluserview();
 }
 
 

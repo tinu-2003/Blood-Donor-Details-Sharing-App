@@ -389,7 +389,7 @@ sx={{maxWidth:'lg',m:4,color:'text.secondary', fontSize:{xs:'1rem ',md:"1.4rem"}
       <Box sx={{ boxShadow:5 ,p:{xs:3,sm:3,md:4}, borderRadius:5, textAlign:'center'}}>
         <Stack 
         spacing={2}sx={
-          {textAlign:{xs:"center",sm:'left'},
+          {textAlign:{xs:"center",sm:'center'},
         mb:{xs:3,sm:4}}
         }>
          <Typography
@@ -401,27 +401,38 @@ sx={{maxWidth:'lg',m:4,color:'text.secondary', fontSize:{xs:'1rem ',md:"1.4rem"}
           >
             New Donor? Check Your Eligibility First!
           </Typography>
-          <Typography variant="p" sx={{textAlign:'left'}}> Quickly review our official guidelines regarding age, weight, and recent travel  to ensure you<br/> can donate safely.</Typography>
+          <Typography variant="p" > Quickly review our official guidelines regarding age, weight, and recent travel  to ensure you<br/> can donate safely.</Typography>
         </Stack>
        <Link to={'/eligibilitycheck'}>
-          <Button  variant="contained"  size="large"  sx={{bgcolor: "error.main",
-                  color: "white",
-                  px: 5,
-                  py: 1.5,
-                  fontWeight: "bold",
-                  borderRadius: "50px",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.08em",
-                  boxShadow: "0px 8px 24px rgba(255, 0, 0, 0.4)",
-                  "&:hover": {
-                    bgcolor: "error.dark",
-                    transform: "scale(1.05)",
-                    boxShadow: "0px 10px 30px rgba(255, 0, 0, 0.6)",
-                  },
-                  transition: "all 0.3s ease",
-                marginLeft:90,
-                marginTop:-20
-                  }}>View Donor Guidelines</Button>
+         <Button
+  variant="contained"
+  size="large"
+  sx={{
+    bgcolor: "error.main",
+    color: "white",
+    px: 5,
+    py: 1.5,
+    fontWeight: "bold",
+    borderRadius: "50px",
+    textTransform: "uppercase",
+    letterSpacing: "0.08em",
+    boxShadow: "0px 8px 24px rgba(255, 0, 0, 0.4)",
+    "&:hover": {
+      bgcolor: "error.dark",
+      transform: "scale(1.05)",
+      boxShadow: "0px 10px 30px rgba(255, 0, 0, 0.6)",
+    },
+    transition: "all 0.3s ease",
+
+    // Responsive positioning
+    display: "block",
+    mx: "auto",       // centers horizontally
+    mt: 3,            // spacing from top
+  }}
+>
+  View Donor Guidelines
+</Button>
+
        </Link>
       </Box>
 
