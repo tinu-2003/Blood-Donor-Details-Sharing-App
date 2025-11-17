@@ -42,3 +42,10 @@ export const getuserbyid = async(id)=>{
     return await commonAPI('GET',`${serverURL}/donors/${id}`,{})
 }
 
+export const updateuserAdmin = async (id, reqBody) => {
+  return await commonAPI('PATCH', `${serverURL}/donors/${id}`, reqBody);
+};
+
+
+
+
