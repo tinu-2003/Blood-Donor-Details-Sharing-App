@@ -50,5 +50,11 @@ export const DeleteuserAdmin = async (id) => {
   return await commonAPI('DELETE', `${serverURL}/donors/${id}`, {});
 };
 
+export const deleteissue = async (id) => {
+  return await commonAPI('DELETE', `${serverURL}/issue/${id}`, {});
+};
+
+
+
 
 

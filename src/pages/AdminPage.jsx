@@ -594,7 +594,7 @@ const userissueDownload = async()=>{
             <TableCell className="text-center">{item.userName}</TableCell>
             <TableCell className="text-center">{item.userCode}</TableCell>
             <TableCell className="text-center">{item.reason}</TableCell>
-            <TableCell  className='text-center'><IssueResolve userid={item.userCode}/></TableCell>
+            <TableCell  className='text-center'><IssueResolve userid={item.userCode} issueid={item.id}/></TableCell>
          
          </TableRow>  
 

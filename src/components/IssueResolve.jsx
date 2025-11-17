@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { Button, Modal, Box, Typography, Input } from "@mui/material";
-import { getuserbyid, updateuserAdmin } from "../services/allAPIs";
+import { deleteissue, getuserbyid, updateuserAdmin } from "../services/allAPIs";
 import { useEffect } from "react";
 
-function IssueResolve({userid}) {
+function IssueResolve({userid,issueid}) {
+// console.log(issueid);
 
-
-
-
-   
    const style = {
     position: "absolute",
     top: "50%",
@@ -60,6 +57,7 @@ const [user,setUser]=useState({
 const updateuser = async()=>{
 const response = await updateuserAdmin(userid, user)
 console.log(response);
+const resp = await deleteissue(issueid)
 
 }
 
