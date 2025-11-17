@@ -407,72 +407,16 @@ const userissueDownload = async()=>{
     },
   }}
 >
-            <Tab label="All users" value="1" />
-            <Tab label="New Users" value="2" />
+            <Tab label=" New Users" value="1" />
+            <Tab label="All users" value="2" />
             <Tab label="InActive user" value="3" />
             <Tab label=" Issues user" value="4" />
           </TabList>
         </Box>
-        {/*All Users  */}
-        <TabPanel value="1">
-          {/* Heading */}
-        <Typography   variant="h4"
-  sx={{ fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" } }}
-  className="text-center m-4" >Active User</Typography>
-        {/* Download Button */}
-     { activeDonors.length > 0 ? <div className='text-end ' width="100%">  
-        <Button onClick={allActiveuserDownload} className="w-full"><FaFileDownload size={30}/></Button>
-        </div>:""}
-        {/* Table */}
-      <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ width: '100%', overflowX: 'auto' }}>
-      <Table className='w-full'>
-        
-        <TableHead className='bg-light '>
-       <TableRow>
-          <TableCell >Name</TableCell>
-          <TableCell >Place</TableCell>
-          <TableCell >District</TableCell>
-          <TableCell >BloodGroup</TableCell>
-          <TableCell >Contact Number</TableCell>
-          <TableCell >Share</TableCell>
-       </TableRow>
-        </TableHead>
-
-        <TableBody>
-         {/* <TableRow>
-            <TableCell>Tinu</TableCell>
-            <TableCell>Ayoor</TableCell>
-            <TableCell>Kollam</TableCell>
-            <TableCell>0+</TableCell>
-            <TableCell>8113044487</TableCell>
-            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
-         </TableRow>        */}
-{
-  activeDonors.length > 0 ? (activeDonors.map((item,index)=>(
-<TableRow key={index}>
-            <TableCell>{item.fullName}</TableCell>
-            <TableCell>{item.city}</TableCell>
-            <TableCell>{item.district}</TableCell>
-            <TableCell>{item.bloodType}</TableCell>
-            <TableCell>{item.phone}</TableCell>
-                       <TableCell  className='text-center'><Button className='btn btn-info'onClick={() => handleShare(item)}>Share</Button></TableCell>
-         
-         </TableRow>  
-
-  ))):(<p>Data loading</p>)
-}
-
-        </TableBody>
-
-      </Table>
-      </TableContainer>
-      </Paper>
-   
-        </TabPanel>
+       
         
        {/* New Users */}
-        <TabPanel value="2">
+        <TabPanel value="1">
      {/* Heading */}
         <Typography variant="h4"
   sx={{ fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" } }}
@@ -535,6 +479,64 @@ const userissueDownload = async()=>{
       </TableContainer>
       </Paper>
           
+        </TabPanel>
+
+         {/*All Users  */}
+        <TabPanel value="2">
+          {/* Heading */}
+        <Typography   variant="h4"
+  sx={{ fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" } }}
+  className="text-center m-4" >Active User</Typography>
+        {/* Download Button */}
+     { activeDonors.length > 0 ? <div className='text-end ' width="100%">  
+        <Button onClick={allActiveuserDownload} className="w-full"><FaFileDownload size={30}/></Button>
+        </div>:""}
+        {/* Table */}
+      <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+      <TableContainer sx={{ width: '100%', overflowX: 'auto' }}>
+      <Table className='w-full'>
+        
+        <TableHead className='bg-light '>
+       <TableRow>
+          <TableCell >Name</TableCell>
+          <TableCell >Place</TableCell>
+          <TableCell >District</TableCell>
+          <TableCell >BloodGroup</TableCell>
+          <TableCell >Contact Number</TableCell>
+          <TableCell >Share</TableCell>
+       </TableRow>
+        </TableHead>
+
+        <TableBody>
+         {/* <TableRow>
+            <TableCell>Tinu</TableCell>
+            <TableCell>Ayoor</TableCell>
+            <TableCell>Kollam</TableCell>
+            <TableCell>0+</TableCell>
+            <TableCell>8113044487</TableCell>
+            <TableCell><Button className='btn btn-info'>Share</Button></TableCell>
+         </TableRow>        */}
+{
+  activeDonors.length > 0 ? (activeDonors.map((item,index)=>(
+<TableRow key={index}>
+            <TableCell>{item.fullName}</TableCell>
+            <TableCell>{item.city}</TableCell>
+            <TableCell>{item.district}</TableCell>
+            <TableCell>{item.bloodType}</TableCell>
+            <TableCell>{item.phone}</TableCell>
+                       <TableCell  className='text-center'><Button className='btn btn-info'onClick={() => handleShare(item)}>Share</Button></TableCell>
+         
+         </TableRow>  
+
+  ))):(<p>Data loading</p>)
+}
+
+        </TableBody>
+
+      </Table>
+      </TableContainer>
+      </Paper>
+   
         </TabPanel>
         <TabPanel value="3">
 
