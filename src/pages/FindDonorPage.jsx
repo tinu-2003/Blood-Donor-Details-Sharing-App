@@ -12,6 +12,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import autoTable from "jspdf-autotable";
 import { FaSearch } from "react-icons/fa";
+import { FaFileDownload } from "react-icons/fa";
 function FindDonorPage() {
 // For filter
 const [filterBlood, setFilterBlood] = useState("");
@@ -266,15 +267,12 @@ const userdataDownload = async()=>{
   }}
 >
   <Button
-    variant="contained"
+   
     color="primary"
     onClick={userdataDownload}
-    sx={{
-      width: { xs: "100%", sm: "150px" }, // Full width on mobile, fixed on desktop
-      fontWeight: "bold"
-    }}
+    
   >
-    Download
+   <FaFileDownload size={30}/>
   </Button>
 </Box>
 :""

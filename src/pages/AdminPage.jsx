@@ -382,11 +382,31 @@ const userissueDownload = async()=>{
 
     {/* Body */}
 
- <div>
+ <div className="m-3">
         <Box sx={{ width: '100%', typography: 'body1' }}>
       <TabContext value={value} >
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example" centered>
+          <TabList
+  onChange={handleChange}
+  aria-label="tabs"
+  variant="scrollable"
+  scrollButtons="auto"
+  sx={{
+    "& .MuiTabs-flexContainer": {
+      justifyContent: {
+        xs: "flex-start",  
+        sm: "flex-start",
+        md: "center",     
+        lg: "center",
+      },
+    },
+
+    
+    "& .MuiTabs-scrollButtons": {
+      display: { xs: "flex", md: "none" }
+    },
+  }}
+>
             <Tab label="All users" value="1" />
             <Tab label="New Users" value="2" />
             <Tab label="InActive user" value="3" />
@@ -396,24 +416,26 @@ const userissueDownload = async()=>{
         {/*All Users  */}
         <TabPanel value="1">
           {/* Heading */}
-        <Typography variant='h3'  className='text-center m-4' >Active User</Typography>
+        <Typography   variant="h4"
+  sx={{ fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" } }}
+  className="text-center m-4" >Active User</Typography>
         {/* Download Button */}
-      <div className='text-end ' width="100%">  
+     { activeDonors.length > 0 ? <div className='text-end ' width="100%">  
         <Button onClick={allActiveuserDownload} className="w-full"><FaFileDownload size={30}/></Button>
-        </div>
+        </div>:""}
         {/* Table */}
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ width: '100%', overflowX: 'auto' }}>
       <Table className='w-full'>
         
         <TableHead className='bg-light '>
        <TableRow>
-          <TableCell>Name</TableCell>
-          <TableCell>Place</TableCell>
-          <TableCell>District</TableCell>
-          <TableCell>BloodGroup</TableCell>
-          <TableCell>Contact Number</TableCell>
-          <TableCell>Share</TableCell>
+          <TableCell >Name</TableCell>
+          <TableCell >Place</TableCell>
+          <TableCell >District</TableCell>
+          <TableCell >BloodGroup</TableCell>
+          <TableCell >Contact Number</TableCell>
+          <TableCell >Share</TableCell>
        </TableRow>
         </TableHead>
 
@@ -452,7 +474,9 @@ const userissueDownload = async()=>{
        {/* New Users */}
         <TabPanel value="2">
      {/* Heading */}
-        <Typography variant='h3'  className='text-center m-4' >New User</Typography>
+        <Typography variant="h4"
+  sx={{ fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" } }}
+  className="text-center m-4">New User</Typography>
         {/* Download Button */}
      { newDonors.length > 0 ? <div className='text-end '>  
         <Button onClick={NewuserDownload} className="w-full"><FaFileDownload size={30}/></Button>
@@ -515,7 +539,9 @@ const userissueDownload = async()=>{
         <TabPanel value="3">
 
            {/* Heading */}
-        <Typography variant='h3'  className='text-center m-4' >InActive User</Typography>
+        <Typography variant="h4"
+  sx={{ fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" } }}
+  className="text-center m-4" >InActive User</Typography>
         {/* Download Button */}
       { inactiveDonors.length > 0 ?<div className='text-end'>  
          <Button onClick={inactiveuserDownload } className="w-full"><FaFileDownload size={30}/></Button>
@@ -565,7 +591,9 @@ const userissueDownload = async()=>{
          <TabPanel value="4">
 
            {/* Heading */}
-        <Typography variant='h3'  className='text-center m-4' >Issues User</Typography>
+        <Typography variant="h4"
+  sx={{ fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" } }}
+  className="text-center m-4" >Issues User</Typography>
         {/* Download Button */}
       { filterissue.length > 0 ? <div className='text-end p-2'>  
         <Button onClick={userissueDownload } className="w-full"><FaFileDownload size={30}/></Button>

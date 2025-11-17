@@ -11,7 +11,10 @@ import {
   MenuItem,
   Button,
   Typography,
-  Box
+  Box,
+  FormControl,
+  InputLabel,
+  Select
 
 } from "@mui/material";
 import { useState } from "react";
@@ -227,14 +230,33 @@ else{
               onChange={handleChange}
               fullWidth
             />
-              <TextField
-              label="District"
-              name="district"
-              type="text"
-              value={formData.district}
-              onChange={handleChange}
-              fullWidth
-            />
+
+            <FormControl fullWidth>
+  <InputLabel id="district-label">District</InputLabel>
+  <Select
+    labelId="district-label"
+    label="District"
+    name="district"
+    value={formData.district}
+    onChange={handleChange}
+  >
+    <MenuItem value="Thiruvananthapuram">Thiruvananthapuram</MenuItem>
+    <MenuItem value="Kollam">Kollam</MenuItem>
+    <MenuItem value="Pathanamthitta">Pathanamthitta</MenuItem>
+    <MenuItem value="Alappuzha">Alappuzha</MenuItem>
+    <MenuItem value="Kottayam">Kottayam</MenuItem>
+    <MenuItem value="Idukki">Idukki</MenuItem>
+    <MenuItem value="Ernakulam">Ernakulam</MenuItem>
+    <MenuItem value="Thrissur">Thrissur</MenuItem>
+    <MenuItem value="Palakkad">Palakkad</MenuItem>
+    <MenuItem value="Malappuram">Malappuram</MenuItem>
+    <MenuItem value="Kozhikode">Kozhikode</MenuItem>
+    <MenuItem value="Wayanad">Wayanad</MenuItem>
+    <MenuItem value="Kannur">Kannur</MenuItem>
+    <MenuItem value="Kasaragod">Kasaragod</MenuItem>
+  </Select>
+</FormControl>
+          
            
           </Box>
         </DialogContent>
