@@ -9,7 +9,7 @@ import {  InputLabel, MenuItem, Paper, Select, Table, TableBody, TableCell, Tabl
 import { TableBar } from '@mui/icons-material';
 import { useState } from 'react';
 import Footer from "../components/Footer";
-import { AllUsers, issueviewAdmin, updateUserStatusAPI } from "../services/allAPIs";
+import { AllUsers, DeleteuserAdmin, issueviewAdmin, updateuserAdmin, updateUserStatusAPI } from "../services/allAPIs";
 import { useEffect } from "react";
 import IssueResolve from "../components/IssueResolve";
 
@@ -75,6 +75,31 @@ useEffect(() => {
   issueview();
 }, []);
 
+
+// activateUser user
+
+const activateUser = async(userdata)=>{
+
+   const  updatestatus = { ...userdata,userStatus:1 }
+  
+  // //  alert(updatestatus)
+  // console.log(updatestatus);
+  
+  const response = await updateuserAdmin(userdata.id, updatestatus)
+  console.log(response);
+  alert("user actvated")
+}
+
+const deleteUser = async(id)=>{
+
+  const response = await DeleteuserAdmin(id)
+  console.log(response);
+  
+  alert('delete user')
+}
+
+
+
 // Share option 
 
 const handleShare = (donor) => {
@@ -87,32 +112,71 @@ const handleShare = (donor) => {
     <>
     {/* header */}
 
-     <AppBar position="sticky" color="inherit" elevation={5} sx={{ top: 0, zIndex: 10 }}>
-      <Toolbar sx={{ maxWidth: "lg", mx: "auto", px: { xs: 2, sm: 4, lg: 6 }, py: 1, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        
-        {/* Logo / Title */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-        <SvgIcon
-  sx={{
-    color: "error.main",
-    fontSize: 40,
-    animation: "pulse 2s infinite",
-    "@keyframes pulse": {
-      "0%": { transform: "scale(1)", opacity: 1 },
-      "50%": { transform: "scale(1.1)", opacity: 0.7 },
-      "100%": { transform: "scale(1)", opacity: 1 },
-    },
-  }}
+  <AppBar 
+  position="sticky" 
+  color="inherit" 
+  elevation={5}
+  sx={{ top: 0, zIndex: 100 }}
 >
-  <path fillRule="evenodd" clipRule="evenodd" d="M10 2a8 8 0 00-8 8c0 3.235 1.55 6.136 4 7.915V14a2 2 0 012-2h4a2 2 0 012 2v3.915c2.45-1.779 4-4.68 4-7.915a8 8 0 00-8-8z" />
-</SvgIcon>
-          <Typography variant="h6" sx={{ fontWeight: 800, letterSpacing: "0.1em", color: "text.primary" }}>
-            LifeDrop  Admin Panal
-          </Typography>   
-        </Box>
-      
-      </Toolbar>
-    </AppBar>
+  <Toolbar
+    sx={{
+      maxWidth: "1200px",
+      mx: "auto",
+      width: "100%",
+      px: { xs: 2, sm: 4 },
+      py: 1,
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    }}
+  >
+    {/* Logo + Title */}
+    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+      <SvgIcon
+        sx={{
+          color: "error.main",
+          fontSize: 40,
+          animation: "pulse 2s infinite",
+          transition: "transform .3s",
+          cursor: "pointer",
+          "&:hover": { transform: "scale(1.15)" },
+
+          "@keyframes pulse": {
+            "0%": { transform: "scale(1)", opacity: 1 },
+            "50%": { transform: "scale(1.12)", opacity: 0.75 },
+            "100%": { transform: "scale(1)", opacity: 1 },
+          },
+        }}
+      >
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M10 2a8 8 0 00-8 8c0 3.235 1.55 6.136 4 7.915V14a2 2 0 012-2h4a2 2 0 012 2v3.915c2.45-1.779 4-4.68 4-7.915a8 8 0 00-8-8z"
+        />
+      </SvgIcon>
+
+      <Typography
+        variant="h6"
+        sx={{
+          fontWeight: 800,
+          letterSpacing: ".05em",
+          color: "text.primary",
+          userSelect: "none",
+          display: { xs: "none", sm: "block" }
+        }}
+      >
+        LifeDrop Admin Panel
+      </Typography>
+    </Box>
+
+    {/* Right Side Buttons (sample) */}
+    <Box sx={{ display: "flex", gap: 2 }}>
+      <Button variant="outlined" color="error">Logout</Button>
+    </Box>
+
+  </Toolbar>
+</AppBar>
+
 
     {/* Body */}
 
@@ -261,12 +325,13 @@ const handleShare = (donor) => {
         
         <TableHead className='bg-light '>
        <TableRow>
-          <TableCell>Name</TableCell>
-          <TableCell>Place</TableCell>
-          <TableCell>District</TableCell>
-          <TableCell>BloodGroup</TableCell>
-          <TableCell>Contact Number</TableCell>
-          <TableCell>Approvel</TableCell>
+          <TableCell className="text-center">Name</TableCell>
+          <TableCell className="text-center">Place</TableCell>
+          <TableCell className="text-center">District</TableCell>
+          <TableCell className="text-center">BloodGroup</TableCell>
+          <TableCell className="text-center">Contact Number</TableCell>
+          <TableCell className="text-center">Approvel</TableCell>
+          <TableCell className="text-center">Delete</TableCell>
        </TableRow>
         </TableHead>
 
@@ -274,12 +339,13 @@ const handleShare = (donor) => {
         {
   inactiveDonors.length > 0 ? (inactiveDonors.map((item,index)=>(
 <TableRow key={index}>
-            <TableCell>{item.fullName}</TableCell>
-            <TableCell>{item.city}</TableCell>
-            <TableCell>{item.district}</TableCell>
-            <TableCell>{item.bloodType}</TableCell>
-            <TableCell>{item.phone}</TableCell>
-                       <TableCell  className='text-center'><Button variant="contented">Activate</Button></TableCell>
+            <TableCell className="text-center">{item.fullName}</TableCell>
+            <TableCell className="text-center">{item.city}</TableCell>
+            <TableCell className="text-center">{item.district}</TableCell>
+            <TableCell className="text-center">{item.bloodType}</TableCell>
+            <TableCell className="text-center">{item.phone}</TableCell>
+            <TableCell  className='text-center'><Button variant="outlined"  onClick={() => activateUser(item)}>Activate</Button></TableCell>
+            <TableCell  className='text-center'><Button variant="outlined" color="error" onClick={()=>deleteUser(item.id)}>Delete</Button></TableCell>
          
          </TableRow>  
 

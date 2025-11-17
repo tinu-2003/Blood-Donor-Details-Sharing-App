@@ -46,6 +46,9 @@ export const updateuserAdmin = async (id, reqBody) => {
   return await commonAPI('PATCH', `${serverURL}/donors/${id}`, reqBody);
 };
 
+export const DeleteuserAdmin = async (id) => {
+  return await commonAPI('DELETE', `${serverURL}/donors/${id}`, {});
+};
 
 
 

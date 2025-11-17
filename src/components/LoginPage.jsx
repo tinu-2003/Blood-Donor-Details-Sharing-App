@@ -53,7 +53,7 @@ else{
     <div>
 
        <div>
-      <Button onClick={handleOpen} variant='outlined'>Admin</Button>
+      <Button onClick={handleOpen} variant="outlined" color="error">Login</Button>
       <Modal
         open={open}
         onClose={handleClose}

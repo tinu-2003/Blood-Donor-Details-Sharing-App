@@ -92,15 +92,11 @@ else{
     <div>
         
            <Button
-          variant="contained"
-          color="success"
+         variant="contained" color="error"
           sx={{
-            display: { xs: "none", md: "block" },
-            px: 4,
-            py: 1,
-            borderRadius: "12px",
-            fontWeight: 600,
-            boxShadow: 3,
+            borderRadius: "15px",
+            fontWeight: 400,
+            boxShadow: 5,
             textTransform: "none",
             transition: "all 0.3s ease",
             "&:hover": { transform: "scale(1.05)" },

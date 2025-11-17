@@ -28,7 +28,7 @@ const[filteruser,SettFilteruser]=useState([])
 
 console.log(donors);
 // sort active user
-  const activeDonors = donors.filter(item => item.userStatus === 0);
+  const activeDonors = donors.filter(item => item.userStatus === 1);
   const viewDonors = async()=>{
 
 
