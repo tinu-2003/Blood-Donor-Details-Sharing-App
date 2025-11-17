@@ -33,7 +33,12 @@ export const issueviewAdmin = async()=>{
 // Api for Userstatus update
 
 
-export const updateUserStatus = async(id ,reqBody)=>{
-    return await commonAPI('PUT',`${serverURL}/donors/${id}`,reqBody)
+export const updateUserStatusAPI = async (id, reqBody) => {
+  return await commonAPI('PATCH', `${serverURL}/donors/${id}`, reqBody);
+};
+
+
+export const getuserbyid = async(id)=>{
+    return await commonAPI('GET',`${serverURL}/donors/${id}`,{})
 }
 

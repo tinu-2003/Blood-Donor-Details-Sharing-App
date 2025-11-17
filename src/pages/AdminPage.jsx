@@ -9,8 +9,9 @@ import {  InputLabel, MenuItem, Paper, Select, Table, TableBody, TableCell, Tabl
 import { TableBar } from '@mui/icons-material';
 import { useState } from 'react';
 import Footer from "../components/Footer";
-import { AllUsers, issueviewAdmin, updateUserStatus } from "../services/allAPIs";
+import { AllUsers, issueviewAdmin, updateUserStatusAPI } from "../services/allAPIs";
 import { useEffect } from "react";
+import IssueResolve from "../components/IssueResolve";
 
 
 
@@ -21,29 +22,16 @@ function AdminPage() {
   // usestae for all user data
   const [allUserData,SetAllUserData]=useState([])
   const [reportIssue,SetReportIssue]=useState([])
-  const [data,SetData]=useState({
-    fullName: "",
-    district: "",
-    phone: "",
-    bloodType: "",
-    gender: "",
-    city: "",
-    age: "",
-    userStatus:0
-    })
+  
 
   const newDonors = allUserData.filter(item => item.userStatus === 0);
   const activeDonors = allUserData.filter(item => item.userStatus === 1);
   const inactiveDonors = allUserData.filter(item => item.userStatus === 2);
   const filterissue = reportIssue.filter(item => item.userCode)
-  // console.log(allUserData);
   
-  const [value, setValue] = useState('1');
-  const handleChange = (event, newValue) => {
-    console.log(newValue);
-    
-    setValue(newValue);
-      };
+
+  
+ 
       // Select box 
 
 
@@ -65,21 +53,23 @@ function AdminPage() {
     SetReportIssue(response.data)
   }
     //  handleApprovalChange
-const handleApprovalChange = async (index, userId, value) => {
 
-  const statusValue = value === "approved" ? 1 : 2;
-  // alert(statusValue);
-     
-   const response= await updateUserStatus(userId, data);
-   console.log(response);
-   
+     const [value, setValue] = useState('1');
+  const handleChange = (event, newValue) => {
+    console.log(newValue);
+    
+    setValue(newValue);
+      };
+
+
+const updateUserStatus2 = async (userId, value) => {
+  const response = await updateUserStatusAPI(userId, { userStatus: value });
+  console.log("Updated:", response);
+  alluserview();
+
 };
 
     
- 
-
-
-
 useEffect(() => {
   alluserview();
   issueview();
@@ -228,23 +218,14 @@ const handleShare = (donor) => {
             <TableCell>{item.phone}</TableCell>
 
                   <TableCell>
-                <Select
-
-                value={data.userStatus === 0
-        ? ""
-        : item.userStatus === 1
-        ? "approved"
-        : "rejected"}
-       onChange={(e)=>handleApprovalChange({...data,userStatus:e.target.value})}
-    
-  
-    sx={{ width: '100%' }}
-    displayEmpty
-  >
-    <MenuItem value="">Pending</MenuItem>
-    <MenuItem value="approved">Approve</MenuItem>
-    <MenuItem value="rejected">Reject</MenuItem>
-  </Select>
+             <Select
+  value={item.userStatus}
+  onChange={(e) => updateUserStatus2(item.id, Number(e.target.value))}
+>
+  <MenuItem value={0}>Pending</MenuItem>
+  <MenuItem value={1}>Approve</MenuItem>
+  <MenuItem value={3}>Reject</MenuItem>
+</Select>
                 </TableCell>
          
          </TableRow>  
@@ -329,8 +310,9 @@ const handleShare = (donor) => {
         <TableHead className='bg-light '>
        <TableRow>
           <TableCell className="text-center">Name</TableCell>
-          <TableCell className="text-center">Place</TableCell>
-          <TableCell className="text-center">District</TableCell>
+          <TableCell className="text-center">id</TableCell>
+          <TableCell className="text-center">Reson</TableCell>
+          <TableCell className="text-center">Action</TableCell>
           {/* <TableCell>BloodGroup</TableCell>
           <TableCell>Contact Number</TableCell>
           <TableCell>Approvel</TableCell> */}
@@ -341,9 +323,10 @@ const handleShare = (donor) => {
          {
   filterissue.length > 0 ? (filterissue.map((item,index)=>(
 <TableRow key={index}>
+            <TableCell className="text-center">{item.userName}</TableCell>
             <TableCell className="text-center">{item.userCode}</TableCell>
             <TableCell className="text-center">{item.reason}</TableCell>
-            <TableCell  className='text-center'><Button variant="outlined" color="error">Resove Now</Button></TableCell>
+            <TableCell  className='text-center'><IssueResolve userid={item.userCode}/></TableCell>
          
          </TableRow>  
 

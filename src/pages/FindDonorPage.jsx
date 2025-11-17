@@ -17,7 +17,7 @@ const [filterPlace, setFilterPlace] = useState("");
 const[filteruser,SettFilteruser]=useState([])
  const filterActiveDonors = filteruser.filter(item => {
   return (
-    item.userStatus === 0 &&
+    item.userStatus === 1 &&
     (filterPlace ? item.city === filterPlace : true) &&
     (filterDistrict ? item.district === filterDistrict : true) &&
     (filterBlood ? item.bloodType === filterBlood : true)
