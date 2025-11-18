@@ -26,7 +26,7 @@ function ReportIssue({ donor }) {
     userCode: donor.id,
     reason: finalReason,
     userName: donor.fullName,
-    phone:donor.phone
+    phoneNumber:donor.phoneNumber
   };
     const  response = await issueDonors(reportData)
     console.log(response.status);

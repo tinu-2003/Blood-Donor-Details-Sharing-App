@@ -53,7 +53,7 @@ if(userName && userName=="admin@123" && userPassword && userPassword=="0000"){
 else{
      Swal.fire({
   title: 'login UnsucessFull!',
-  text: '.',
+  text: 'username or password dont match',
   icon: 'error',
   confirmButtonText: 'Cool'
 })
@@ -88,7 +88,7 @@ else{
       }}
     >
       <Typography variant="h5" sx={{ fontWeight: 700 }}>
-       Admin Login
+        Login
       </Typography>
 
       {/* Username Field */}

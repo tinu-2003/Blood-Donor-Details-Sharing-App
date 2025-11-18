@@ -33,7 +33,7 @@ function IssueResolve({userid,issueid}) {
 const [user,setUser]=useState({
       fullName: "",
     district: "",
-    phone: "",
+    phoneNumber: "",
     bloodType: "",
     gender: "",
     city: "",
@@ -109,8 +109,8 @@ console.log(response);
             fullWidth
             id="phone"
             type="text"
-            value={user.phone}
-            onChange={(e) => setUser({ ...user, phone: e.target.value })}
+            value={user.phoneNumber}
+            onChange={(e) => setUser({ ...user, phoneNumber: e.target.value })}
             sx={{ padding: 1, borderRadius: 1, border: "1px solid #ccc" }}
           />
         </Box>

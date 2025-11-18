@@ -70,7 +70,7 @@ console.log(donors);
 //  share option
 
 const handleShare = (donor) => {
-  const message = `Donor Info:\nName: ${donor.fullName}\nBlood: ${donor.bloodType}\nPlace: ${donor.city}, ${donor.district}\nPhone: ${donor.phone}`;
+  const message = `Donor Info:\nName: ${donor.fullName}\nBlood: ${donor.bloodType}\nPlace: ${donor.city}, ${donor.district}\nPhone: ${donor.phoneNumber}`;
   const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
   window.open(url, '_blank');
 };
@@ -100,9 +100,9 @@ const userdataDownload = async()=>{
     item.city,
     item.district,
     item.bloodType,
-    item.phone
+    item.phoneNumber
   ]);
-  // Create PDF table
+  //  PDF table creation
   autoTable(doc, {
     head: headers,
     body: rows,
@@ -324,7 +324,7 @@ const userdataDownload = async()=>{
               <TableCell  className='text-center'>{item.city}</TableCell>
               <TableCell  className='text-center'>{item.district}</TableCell>
               <TableCell  className='text-center'>{item.bloodType}</TableCell>
-              <TableCell  className='text-center'>{item.phone}</TableCell>
+              <TableCell  className='text-center'>{item.phoneNumber}</TableCell>
               <TableCell  className='text-center'><Button className='btn btn-info'onClick={() => handleShare(item)}>Share</Button></TableCell>
                                      <TableCell  className='text-center'><ReportIssue donor={item}/></TableCell>
 
@@ -341,7 +341,7 @@ const userdataDownload = async()=>{
               <TableCell  className='text-center'>{item.city}</TableCell>
               <TableCell  className='text-center'>{item.district}</TableCell>
               <TableCell  className='text-center'>{item.bloodType}</TableCell>
-              <TableCell  className='text-center'>{item.phone}</TableCell>
+              <TableCell  className='text-center'>{item.phoneNumber}</TableCell>
               <TableCell  className='text-center'><Button className='btn btn-info'onClick={() => handleShare(item)}>Share</Button></TableCell>
                           <TableCell  className='text-center'><ReportIssue donor={item}/></TableCell>
 

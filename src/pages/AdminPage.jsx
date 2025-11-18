@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { FaFileDownload } from "react-icons/fa";
-
+import { MdDelete } from "react-icons/md";
 
 
 function AdminPage() {
@@ -32,6 +32,9 @@ function AdminPage() {
   const activeDonors = allUserData.filter(item => item.userStatus === 1);
   const inactiveDonors = allUserData.filter(item => item.userStatus === 2);
   const filterissue = reportIssue.filter(item => item.userCode)
+
+  console.log(reportIssue);
+  
   
 
   
@@ -158,7 +161,7 @@ else{
 // Share option 
 
 const handleShare = (donor) => {
-  const message = `Donor Info:\nName: ${donor.fullName}\nBlood: ${donor.bloodType}\nPlace: ${donor.city}, ${donor.district}\nPhone: ${donor.phone}`;
+  const message = `Donor Info:\nName: ${donor.fullName}\nBlood: ${donor.bloodType}\nPlace: ${donor.city}, ${donor.district}\nPhone: ${donor.phoneNumber}`;
   const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
   window.open(url, '_blank');
 };
@@ -180,7 +183,7 @@ const allActiveuserDownload = async()=>{
     item.city,
     item.district,
     item.bloodType,
-    item.phone
+    item.phoneNumber
   ]);
 
   autoTable(doc,{
@@ -216,7 +219,7 @@ const NewuserDownload = async()=>{
     item.city,
     item.district,
     item.bloodType,
-    item.phone
+    item.phoneNumber
   ]);
 
   autoTable(doc,{
@@ -252,7 +255,7 @@ const inactiveuserDownload = async()=>{
     item.city,
     item.district,
     item.bloodType,
-    item.phone
+    item.phoneNumber
   ]);
 
   autoTable(doc,{
@@ -285,7 +288,7 @@ const userissueDownload = async()=>{
   const row = filterissue.map(item=>[
     item.userName,
     item.reason,
-    item.phone
+    item.phoneNumber
    
   ]);
 
@@ -438,6 +441,7 @@ const userissueDownload = async()=>{
           <TableCell>BloodGroup</TableCell>
           <TableCell>Contact Number</TableCell>
           <TableCell>Approvel</TableCell>
+          <TableCell>Delete</TableCell>
        </TableRow>
         </TableHead>
 
@@ -449,7 +453,7 @@ const userissueDownload = async()=>{
             <TableCell>{item.city}</TableCell>
             <TableCell>{item.district}</TableCell>
             <TableCell>{item.bloodType}</TableCell>
-            <TableCell>{item.phone}</TableCell>
+            <TableCell>{item.phoneNumber}</TableCell>
 
                   <TableCell>
              <Select
@@ -461,6 +465,9 @@ const userissueDownload = async()=>{
   <MenuItem value={3}>Reject</MenuItem>
 </Select>
                 </TableCell>
+
+            <TableCell><Button  onClick={()=>deleteUser(item.id)}><MdDelete size={30} /></Button></TableCell>
+
          
          </TableRow>  
 
@@ -523,7 +530,7 @@ const userissueDownload = async()=>{
             <TableCell>{item.city}</TableCell>
             <TableCell>{item.district}</TableCell>
             <TableCell>{item.bloodType}</TableCell>
-            <TableCell>{item.phone}</TableCell>
+            <TableCell>{item.phoneNumber}</TableCell>
                        <TableCell  className='text-center'><Button className='btn btn-info'onClick={() => handleShare(item)}>Share</Button></TableCell>
          
          </TableRow>  
@@ -573,9 +580,9 @@ const userissueDownload = async()=>{
             <TableCell className="text-center">{item.city}</TableCell>
             <TableCell className="text-center">{item.district}</TableCell>
             <TableCell className="text-center">{item.bloodType}</TableCell>
-            <TableCell className="text-center">{item.phone}</TableCell>
+            <TableCell className="text-center">{item.phoneNumber}</TableCell>
             <TableCell  className='text-center'><Button variant="outlined"  onClick={() => activateUser(item)}>Activate</Button></TableCell>
-            <TableCell  className='text-center'><Button variant="outlined" color="error" onClick={()=>deleteUser(item.id)}>Delete</Button></TableCell>
+            <TableCell  className='text-center'><Button variant="outlined" color="error" onClick={()=>deleteUser(item.id)}><MdDelete size={30} /></Button></TableCell>
          
          </TableRow>  
 
@@ -628,7 +635,7 @@ const userissueDownload = async()=>{
          
          </TableRow>  
 
-  ))):(<p>Data loading</p>)
+  ))):(<p className="text-center">No Data Found</p>)
 }
 
           
